@@ -1,0 +1,87 @@
+var express = require('express');
+var db = require('../models');
+var questionRouter = express.Router();
+var commentRouter = express.Router({mergeParams: true});
+
+questionRouter.use('/:questionId/comments', commentRouter);
+
+
+questionRouter.route('/')
+  .get(function(req, res) {
+    db.question.findAll({include: [db.user]}).then(function(questions) {
+      res.send(questions);
+    });
+  })
+  .post(function(req, res) {
+    db.question.create(req.body).then(function(question) {
+      db.question.find({
+        where: {id: question.id},
+        include: [db.user]
+      }).then(function(question) {
+        res.send(question);
+      });
+    });
+  });
+
+questionRouter.route('/:questionId')
+  .get(function(req, res) {
+    db.question.find({
+      where: {id: req.params.questionId},
+      include: [db.user]
+    }).then(function(question) {
+      res.send(question);
+    });
+  })
+  .put(function(req, res) {
+    db.question.findById(req.params.questionId).then(function(question) {
+      question.setAttributes(req.body).then(function(question) {
+        res.send(question);
+      });
+    })
+  })
+  .delete(function(req, res) {
+    db.question.destroy({where: {id: req.params.questionId}}).then(function() {
+      res.status(200).send();
+    });
+  });
+
+commentRouter.route('/')
+  .get(function(req, res) {
+    db.comment.findAll({
+      where: {questionId: req.params.questionId}
+    }).then(function(comments) {
+      res.send(comments);
+    });
+  })
+  .post(function(req, res) {
+    db.comment.create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      password: req.body.password,
+      questionId: req.params.questionId
+    }).then(function(comment) {
+      res.send(comment);
+    });
+  });
+
+commentRouter.route('/:commentId')
+  .get(function(req, res) {
+    db.comment.findById(req.params.commentId).then(function(comment) {
+      res.send(comment);
+    });
+  })
+  .put(function(req, res) {
+    db.comment.findById(req.params.commentId).then(function(comment) {
+      comment.setAttributes(req.body).then(function(comment) {
+        res.send(comment);
+      });
+    })
+  })
+  .delete(function(req, res) {
+    db.comment.destroy({where: {id: req.params.commentId}}).then(function() {
+      res.status(200).send();
+    });
+  });
+
+module.exports = questionRouter;

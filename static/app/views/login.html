@@ -1,0 +1,21 @@
+<div id="loginModal">
+  <form ng-submit="submitLogin()" role="form"> 
+    <div class="modal-header">
+      <h3 class="modal-title">Login</h3>
+    </div>
+    <div class="modal-body">
+        <div class="form-group">
+          <label class="hidden" for="email">Email</label>
+          <input type="email" class="form-control" id="email" placeholder="Email address" ng-model="user.email">
+        </div>
+        <div class="form-group">
+          <label class="hidden" for="password">Password</label>
+          <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password">
+        </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" type="submit">Login</button>
+      <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>
