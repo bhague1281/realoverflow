@@ -5,13 +5,14 @@
   <base href="/">
 
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
 
   <title></title>
 </head>
 <body ng-app="RealOverflow">
-  <nav class="navbar navbar-default" role="navigation">
+  <nav class="navbar navbar-default" role="navigation" ng-controller="LoginCtrl">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+      <button type="button" class="navbar-toggle" ng-click="navCollapsed = !navCollapsed">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
@@ -20,12 +21,12 @@
       <a class="navbar-brand" href="/">RealOverflow</a>
     </div>
   
-    <div class="collapse navbar-collapse navbar-main-collapse">
+    <div class="navbar-collapse collapse" uib-collapse="navCollapsed">
       <ul class="nav navbar-nav">
         <li><a href="/about">About</a></li>
         <li><a href="/questions">Questions</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right" ng-controller="LoginCtrl">
+      <ul class="nav navbar-nav navbar-right">
         <li><a ng-click="openLoginModal()">Login</a></li>
         <li><a ng-click="openSignupModal()">Signup</a></li>
       </ul>
@@ -38,6 +39,7 @@
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.1/angular-animate.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <script type="text/javascript" src="/app/js/app.js"></script>

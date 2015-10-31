@@ -1,5 +1,7 @@
 realOverflow
 .controller('LoginCtrl', ['$scope', '$uibModal', 'auth', function($scope, $uibModal, auth) {
+  $scope.navCollapsed = true;
+
   $scope.openLoginModal = function() {
     var loginModal = $uibModal.open({
       animation: true,
