@@ -2,7 +2,10 @@
 module.exports = function(sequelize, DataTypes) {
   var comment = sequelize.define('comment', {
     content: DataTypes.TEXT,
-    score: DataTypes.INTEGER,
+    score: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     questionId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER
   }, {

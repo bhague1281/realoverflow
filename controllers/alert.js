@@ -10,10 +10,8 @@ router.route('/')
   })
   .post(function(req, res) {
     db.alert.create({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      password: req.body.password
+      content: req.body.content,
+      userId: req.body.userId
     }).then(function(alert) {
       res.send(alert);
     });

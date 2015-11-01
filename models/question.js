@@ -2,8 +2,14 @@
 module.exports = function(sequelize, DataTypes) {
   var question = sequelize.define('question', {
     content: DataTypes.TEXT,
-    answered: DataTypes.BOOLEAN,
-    score: DataTypes.INTEGER,
+    answered: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    },
+    score: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     userId: DataTypes.INTEGER
   }, {
     classMethods: {
