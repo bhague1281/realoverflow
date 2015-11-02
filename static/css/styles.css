@@ -1,2 +1,6 @@
 /* Needed for UI Bootstrap, since there's no href for these links */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.item.ng-enter, .item.ng-move {
+  animation: fadeInUp 1s;
+}
