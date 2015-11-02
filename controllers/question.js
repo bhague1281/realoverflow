@@ -48,7 +48,8 @@ questionRouter.route('/:questionId')
 commentRouter.route('/')
   .get(function(req, res) {
     db.comment.findAll({
-      where: {questionId: req.params.questionId}
+      where: {questionId: req.params.questionId},
+      include: [db.user]
     }).then(function(comments) {
       res.send(comments);
     });

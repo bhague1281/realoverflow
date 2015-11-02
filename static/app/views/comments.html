@@ -1,3 +1,17 @@
 <h1>{{ question.content }}
   <small>{{ question.user.firstName }} {{ question.user.lastName }}</small>
 </h1>
+
+<form ng-submit="submitComment()" method="POST" role="form">
+  <div class="form-group">
+    <label for="content">Comment</label>
+    <textarea type="text" class="form-control" id="content" placeholder="Comment goes here" ng-model="content"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+<div class="well" ng-repeat="comment in comments">
+  <p>{{ comment.content }}</p>
+  <small>- {{ comment.user.firstName }}  {{ comment.user.lastName }}</small>
+</div>

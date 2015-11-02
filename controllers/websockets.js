@@ -19,7 +19,12 @@ module.exports = function(io) {
     socket.on('new comment', function(comment) {
       console.log('new comment created', comment);
       db.comment.create(comment).then(function(comment) {
-        io.emit('server comment', comment);
+        db.comment.find({
+          where: {id: comment.id},
+          include: [db.user]
+        }).then(function(comment) {
+          io.emit('server comment', comment);
+        });
       });
     });
 
