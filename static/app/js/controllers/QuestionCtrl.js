@@ -12,9 +12,9 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', function($scope, $ht
   $scope.submitQuestion = function() {
     socket.emit('new question', {
       content: $scope.content,
-      userId: 1,
+      userId: 1, // replace with current user
       answered: false,
-      score: 0
+      score: 0 // replace w/a default value
     });
     $scope.content = '';
   };

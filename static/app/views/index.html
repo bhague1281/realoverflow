@@ -1,7 +1,7 @@
 <h1>RealOverflow</h1>
 
 <div class="well item" ng-repeat="question in questions track by $index">
-  <h2>{{ question.content }}
+  <h2><a ng-href="/questions/{{ question.id }}/comments">{{ question.content }}</a>
     <small>- {{ question.user.firstName }} {{ question.user.lastName }}</small>
   </h2>
 </div>

@@ -1,5 +1,5 @@
 realOverflow
-.controller('LoginCtrl', ['$scope', '$uibModal', 'auth', function($scope, $uibModal, auth) {
+.controller('NavCtrl', ['$scope', '$uibModal', 'auth', function($scope, $uibModal, auth) {
   $scope.navCollapsed = true;
   $scope.auth = function() {
     return auth;
@@ -43,12 +43,10 @@ realOverflow
   $scope.user = {};
 
   $scope.submitLogin = function() {
-    console.log('login');
     $uibModalInstance.close($scope.user);
   };
 
   $scope.cancel = function() {
-    console.log('cancel');
     $uibModalInstance.dismiss('cancel');
   };
 }])
@@ -56,12 +54,10 @@ realOverflow
   $scope.user = {};
 
   $scope.submitSignup = function() {
-    console.log('signup');
     $uibModalInstance.close($scope.user);
   }
 
   $scope.cancel = function() {
-    console.log('cancel');
     $uibModalInstance.dismiss('cancel');
   };
 }]);

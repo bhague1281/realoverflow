@@ -11,7 +11,7 @@
   <title></title>
 </head>
 <body ng-app="RealOverflow">
-  <nav class="navbar navbar-default" role="navigation" ng-controller="LoginCtrl">
+  <nav class="navbar navbar-default" role="navigation" ng-controller="NavCtrl">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" ng-click="navCollapsed = !navCollapsed">
         <span class="sr-only">Toggle navigation</span>
@@ -27,9 +27,12 @@
         <li><a href="/about" ng-click="navCollapsed=true">About</a></li>
         <li><a href="/questions" ng-click="navCollapsed=true">Questions</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" ng-hide="auth.isLoggedIn()">
         <li><a ng-click="openLoginModal(); navCollapsed=true">Login</a></li>
         <li><a ng-click="openSignupModal(); navCollapsed=true">Signup</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right" ng-show="auth.isLoggedIn()">
+        <li><a ng-click="navCollapsed=true">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </nav>
@@ -49,6 +52,6 @@
   <script type="text/javascript" src="/app/js/controllers/AboutCtrl.js"></script>
   <script type="text/javascript" src="/app/js/controllers/QuestionCtrl.js"></script>
   <script type="text/javascript" src="/app/js/controllers/CommentCtrl.js"></script>
-  <script type="text/javascript" src="/app/js/controllers/LoginCtrl.js"></script>
+  <script type="text/javascript" src="/app/js/controllers/NavCtrl.js"></script>
 </body>
 </html>
