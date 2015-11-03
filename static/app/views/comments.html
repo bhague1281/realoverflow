@@ -11,7 +11,7 @@
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-<div class="well item" ng-repeat="comment in comments">
+<div class="well item" ng-repeat="comment in comments track by comment.id">
   <p>{{ comment.content }}</p>
   <small>- {{ comment.user.firstName }}  {{ comment.user.lastName }}</small>
 </div>

@@ -10,7 +10,7 @@
 
   <hr>
 
-  <div class="well item" ng-repeat="question in questions track by $index">
+  <div class="well item" ng-repeat="question in questions track by question.id">
     <h2><a ng-href="/questions/{{ question.id }}/comments">{{ question.content }}</a>
       <small>- {{ question.user.firstName }} {{ question.user.lastName }}</small>
     </h2>

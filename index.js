@@ -1,8 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var db = require('./models');
-var passport = require('passport');
-var JwtStrategy = require('passport-jwt').Strategy;
+var passport = require('./config/passportJwt');
 var tk = require('jsonwebtoken');
 var app = express();
 var http = require('http').Server(app);
@@ -14,21 +13,6 @@ app.set('superSecret', 'secret');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/static'));
-
-passport.use(new JwtStrategy({
-  secretOrKey: app.get('superSecret')
-}, function(jwt_payload, done) {
-  console.log(jwt_payload);
-  db.user.findById(jwt_payload.id).then(function(user) {
-    if (user) {
-      done(null, user);
-    } else {
-      done(null, false);
-    }
-  }).catch(function(err) {
-    return done(err, false);
-  });
-}));
 
 app.post('/api/signup', function(req, res) {
   db.user.create({
@@ -77,7 +61,7 @@ app.get('/api/protected', passport.authenticate('jwt', {session: false}), functi
 });
 
 app.use('/api/users', passport.authenticate('jwt', {session: false}), require('./controllers/user'));
-app.use('/api/questions', passport.authenticate('jwt', {session: false}), require('./controllers/question'));
+app.use('/api/questions', require('./controllers/question'));
 app.use('/api/alerts', passport.authenticate('jwt', {session: false}), require('./controllers/question'));
 
 // Requests that don't match any of the above should be sent to index

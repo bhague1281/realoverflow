@@ -1,5 +1,6 @@
 var express = require('express');
 var db = require('../models');
+var passport = require('../config/passportJwt');
 var questionRouter = express.Router();
 var commentRouter = express.Router({mergeParams: true});
 
@@ -12,7 +13,7 @@ questionRouter.route('/')
       res.send(questions);
     });
   })
-  .post(function(req, res) {
+  .post(passport.authenticate('jwt', {session: false}), function(req, res) {
     db.question.create(req.body).then(function(question) {
       db.question.find({
         where: {id: question.id},

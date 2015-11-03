@@ -7,6 +7,7 @@ realOverflow
 
   $scope.logout = function() {
     Auth.logout();
+    $route.reload();
   }
 
   $scope.openLoginModal = function() {
