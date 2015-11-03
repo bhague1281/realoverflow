@@ -24,7 +24,7 @@ app.post('/api/signup', function(req, res) {
     }
   }).spread(function(user, created) {
     if (created) {
-      var token = tk.sign(user, app.get('superSecret'), {
+      var token = tk.sign(user, process.env.JWT_SECRET, {
         expiresIn: 1440 // expires in 24 hours
       });
       var serializedUser = user.getWithNoPassword();
@@ -51,7 +51,7 @@ app.post('/api/login', function(req, res) {
         if (err || !result) {
           res.status(401).send({ success: false, message: 'Authentication failed. Wrong password.' });
         } else {
-          var token = tk.sign(user.getWithNoPassword(), app.get('superSecret'), {
+          var token = tk.sign(user.getWithNoPassword(), process.env.JWT_SECRET, {
             expiresIn: 1440 // expires in 24 hours
           });
 
