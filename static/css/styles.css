@@ -13,3 +13,17 @@
 .auth-btns.ng-hide-remove {
   animation: fadeInRight 1s;
 }
+
+.alert {
+  position: absolute;
+  width: inherit;
+  z-index: 999;
+}
+
+.alert.ng-enter {
+  animation: fadeInDown 1s;
+}
+
+.alert.ng-leave {
+  animation: fadeOutUp 1s;
+}

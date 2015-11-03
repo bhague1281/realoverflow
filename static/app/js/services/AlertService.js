@@ -1,4 +1,4 @@
-realOverflow.factory('AlertService', [function() {
+realOverflow.factory('Alerts', [function() {
   var alerts = [];
 
   return {

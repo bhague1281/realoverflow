@@ -38,6 +38,10 @@
     </div><!-- /.navbar-collapse -->
   </nav>
 
+  <div class="container" ng-controller="AlertCtrl" ng-cloak>
+    <uib-alert class="alert" ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)" dismiss-on-timeout="2000">{{ alert.msg }}</uib-alert>
+  </div>
+
   <div class="container">
     <ng-view></ng-view>
   </div>
@@ -49,10 +53,12 @@
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <script type="text/javascript" src="/app/js/app.js"></script>
   <script type="text/javascript" src="/app/js/services/AuthService.js"></script>
+  <script type="text/javascript" src="/app/js/services/AlertService.js"></script>
   <script type="text/javascript" src="/app/js/controllers/HomeCtrl.js"></script>
   <script type="text/javascript" src="/app/js/controllers/AboutCtrl.js"></script>
   <script type="text/javascript" src="/app/js/controllers/QuestionCtrl.js"></script>
   <script type="text/javascript" src="/app/js/controllers/CommentCtrl.js"></script>
   <script type="text/javascript" src="/app/js/controllers/NavCtrl.js"></script>
+  <script type="text/javascript" src="/app/js/controllers/AlertCtrl.js"></script>
 </body>
 </html>

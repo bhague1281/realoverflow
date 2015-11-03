@@ -1,5 +1,5 @@
 realOverflow
-.controller('NavCtrl', ['$scope', '$uibModal', '$route', 'Auth', function($scope, $uibModal, $route, Auth) {
+.controller('NavCtrl', ['$scope', '$uibModal', '$route', 'Auth', 'Alerts', function($scope, $uibModal, $route, Auth, Alerts) {
   $scope.navCollapsed = true;
   $scope.loggedIn = function() {
     return Auth.isLoggedIn();
@@ -7,6 +7,7 @@ realOverflow
 
   $scope.logout = function() {
     Auth.logout();
+    Alerts.add('success', 'You have successfully logged out');
     $route.reload();
   }
 
@@ -25,8 +26,10 @@ realOverflow
       console.log(user);
       Auth.login(user).then(function() {
         console.log('logged in!');
+        Alerts.add('success', 'You have successfully logged in');
         $route.reload();
       }).catch(function(error) {
+        Alert.push('danger', 'An error occurred: ' + error);
         console.log(error);
       });
     });
@@ -44,6 +47,7 @@ realOverflow
       Auth.signup(user).then(function() {
         console.log('Signed up!');
         Auth.login(user).then(function() {
+          Alerts.add('success', 'You have successfully signed up and logged in');
           console.log('logged in!');
           $route.reload();
         });
