@@ -27,17 +27,19 @@ app.post('/api/signup', function(req, res) {
     var serializedUser = user.getWithNoPassword();
     serializedUser.token = token;
     res.send(serializedUser);
+  }).catch(function(error) {
+    res.status(500).send({message: error});
   });
 });
 
 app.post('/api/login', function(req, res) {
   db.user.find({ where: {email: req.body.email}}).then(function(user) {
     if (!user) {
-      res.send({ success: false, message: 'Authentication failed. User not found.' });
+      res.status(401).send({ success: false, message: 'Authentication failed. User not found.' });
     } {
       user.checkPassword(req.body.password, function(err, result) {
         if (err || !result) {
-          res.send({ success: false, message: 'Authentication failed. Wrong password.' });
+          res.status(401).send({ success: false, message: 'Authentication failed. Wrong password.' });
         } else {
           var token = tk.sign(user.getWithNoPassword(), app.get('superSecret'), {
             expiresIn: 1440 // expires in 24 hours

@@ -40,7 +40,7 @@ realOverflow.factory('Auth', ['$http', '$window', function($http, $window) {
     return $http.post('/api/signup', user).then(function success(response) {
       auth.saveToken(response.data.token);
     }, function error(response) {
-      console.log(response);
+      throw response
     });
   };
 
@@ -48,7 +48,7 @@ realOverflow.factory('Auth', ['$http', '$window', function($http, $window) {
     return $http.post('/api/login', user).then(function success(response) {
       auth.saveToken(response.data.token);
     }, function error(response) {
-      console.log(response);
+      throw response
     });
   };
 
