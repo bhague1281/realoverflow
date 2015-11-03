@@ -39,8 +39,7 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth
     socket.emit('new comment', {
       content: $scope.content,
       userId: Auth.currentUser().id,
-      questionId: $scope.question.id,
-      score: 0 // omit later w/a default value
+      questionId: $scope.question.id
     });
     $scope.content = '';
   };

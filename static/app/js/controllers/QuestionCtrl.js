@@ -23,8 +23,7 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', function($sc
     socket.emit('new question', {
       content: $scope.content,
       userId: Auth.currentUser().id, // replace with current user
-      answered: false,
-      score: 0 // replace w/a default value
+      answered: false
     });
     $scope.content = '';
   };
