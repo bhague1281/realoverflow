@@ -54,4 +54,8 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth
       });
     }
   });
+
+  $scope.$on('$destroy', function(event) {
+    socket.removeAllListeners();
+  });
 }]);

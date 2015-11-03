@@ -35,4 +35,8 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', function($sc
       $scope.questions.unshift(question);
     });
   });
+
+  $scope.$on('$destroy', function(event) {
+    socket.removeAllListeners();
+  });
 }]);
