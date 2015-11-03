@@ -2,6 +2,10 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', function($sc
   $scope.questions = [];
   $scope.error = false;
 
+  $scope.loggedIn = function() {
+    return Auth.isLoggedIn();
+  }
+
   $http({
     method: 'GET',
     url: '/api/questions',
@@ -18,7 +22,7 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', function($sc
   $scope.submitQuestion = function() {
     socket.emit('new question', {
       content: $scope.content,
-      userId: 1, // replace with current user
+      userId: Auth.currentUser().id, // replace with current user
       answered: false,
       score: 0 // replace w/a default value
     });

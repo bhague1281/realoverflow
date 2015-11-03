@@ -1,8 +1,17 @@
-<h1>{{ question.content }}
-  <small>{{ question.user.firstName }} {{ question.user.lastName }}</small>
-</h1>
+<div class="row">
+  <div class="col-xs-1 text-center">
+    <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+    <h4>{{ question.score }}</h4>
+    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+  </div>
+  <div class="col-xs-11">
+    <h1>{{ question.content }}</a>
+    <small>- {{ question.user.firstName }} {{ question.user.lastName }}</small>
+    </h1>
+  </div>
+</div>
 
-<form ng-submit="submitComment()" method="POST" role="form">
+<form ng-submit="submitComment()" role="form" ng-show="loggedIn()">
   <div class="form-group">
     <label for="content">Comment</label>
     <textarea type="text" class="form-control" id="content" placeholder="Comment goes here" ng-model="content"></textarea>
@@ -10,6 +19,11 @@
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<div ng-hide="loggedIn()">
+  <h3>Log in to post comments</h3>
+</div>
+
+<hr>
 
 <div class="well item" ng-repeat="comment in comments track by comment.id">
   <p>{{ comment.content }}</p>

@@ -1,6 +1,15 @@
 /* Needed for UI Bootstrap, since there's no href for these links */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+/* hide elements with ng-cloak until loaded */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
 .item.ng-enter, .item.ng-move {
   animation: fadeInUp 1s;
+}
+
+.auth-btns.ng-hide-remove {
+  animation: fadeInRight 1s;
 }

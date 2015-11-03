@@ -10,6 +10,10 @@ realOverflow
     $route.reload();
   }
 
+  $scope.currentUser = function() {
+    return Auth.currentUser();
+  }
+
   $scope.openLoginModal = function() {
     var loginModal = $uibModal.open({
       animation: true,
@@ -39,7 +43,10 @@ realOverflow
       console.log(user);
       Auth.signup(user).then(function() {
         console.log('Signed up!');
-        $route.reload();
+        Auth.login(user).then(function() {
+          console.log('logged in!');
+          $route.reload();
+        });
       }).catch(function(error) {
         console.log(error);
       });

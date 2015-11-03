@@ -2,6 +2,10 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth
   $scope.question = {};
   $scope.comments = [];
 
+  $scope.loggedIn = function() {
+    return Auth.isLoggedIn();
+  }
+
   //get the question from the API
   $http({
     method: 'GET',
@@ -34,7 +38,7 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth
   $scope.submitComment = function() {
     socket.emit('new comment', {
       content: $scope.content,
-      userId: 1, // replace with currently logged in user
+      userId: Auth.currentUser().id,
       questionId: $scope.question.id,
       score: 0 // omit later w/a default value
     });

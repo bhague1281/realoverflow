@@ -29,7 +29,7 @@ realOverflow.factory('Auth', ['$http', '$window', function($http, $window) {
       var token = auth.getToken();
       try {
         var payload = JSON.parse($window.atob(token.split('.')[1]));
-        return payload.email;
+        return payload;
       } catch(err) {
         return false;
       }
