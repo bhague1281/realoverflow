@@ -25,6 +25,9 @@ realOverflow.service('Sockets', [function() {
     emitEvent: function(event, payload) {
       socket.emit(event, payload);
     },
+    joinRoom: function(room) {
+      socket.join(room);
+    },
     getEvents: function() {
       return events;
     }

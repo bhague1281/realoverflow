@@ -4,6 +4,14 @@ module.exports = function(io) {
   io.on('connection', function(socket) {
     console.log('connected');
 
+    socket.on('join room', function(data) {
+      socket.join(data.room);
+    });
+
+    socket.on('leave room', function(data) {
+      socket.leave(data.room);
+    });
+
     socket.on('new question', function(question) {
       console.log('new question created', question);
       db.question.create(question).then(function(question) {
@@ -23,7 +31,7 @@ module.exports = function(io) {
           where: {id: comment.id},
           include: [db.user]
         }).then(function(comment) {
-          io.emit('server comment', comment);
+          io.in('question' + comment.questionId).emit('server comment', comment);
         });
       });
     });

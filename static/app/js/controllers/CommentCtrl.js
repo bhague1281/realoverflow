@@ -1,6 +1,7 @@
 realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth', 'Sockets', function($scope, $http, $routeParams, Auth, Sockets) {
   $scope.question = {};
   $scope.comments = [];
+  $scope.room = ''
 
   $scope.loggedIn = function() {
     return Auth.isLoggedIn();
@@ -16,6 +17,8 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth
   }).then(function success(response) {
     console.log(response);
     $scope.question = response.data;
+    $scope.room = 'question' + $scope.question.id;
+    Sockets.emitEvent('join room', {room: $scope.room});
   }, function error(response) {
     console.log(response);
   });
@@ -56,5 +59,6 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth
 
   $scope.$on('$destroy', function(event) {
     Sockets.removeSocketListener('server comment');
+    Sockets.emitEvent('leave room', {room: $scope.room});
   });
 }]);
