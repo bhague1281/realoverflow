@@ -1,31 +1,34 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var jwt = require('express-jwt');
-var tk = require('jsonwebtoken');
 var db = require('./models');
+var passport = require('passport');
+var JwtStrategy = require('passport-jwt').Strategy;
+var tk = require('jsonwebtoken');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var sockets = require('./controllers/websockets')(io);
-
-var jwtCheck = jwt({
-  secret: 'secret',
-  credentialsRequired: false,
-  getToken: function fromHeaderOrQuerystring (req) {
-    if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
-      return req.headers.authorization.split(' ')[1];
-    } else if (req.query && req.query.token) {
-      return req.query.token;
-    }
-    return null;
-  }
-});
 
 app.set('view engine', 'ejs');
 app.set('superSecret', 'secret');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(__dirname + '/static'));
+
+passport.use(new JwtStrategy({
+  secretOrKey: app.get('superSecret')
+}, function(jwt_payload, done) {
+  console.log(jwt_payload);
+  db.user.findById(jwt_payload.id).then(function(user) {
+    if (user) {
+      done(null, user);
+    } else {
+      done(null, false);
+    }
+  }).catch(function(err) {
+    return done(err, false);
+  });
+}));
 
 app.post('/api/signup', function(req, res) {
   db.user.create({
@@ -37,7 +40,7 @@ app.post('/api/signup', function(req, res) {
     var token = tk.sign(user, app.get('superSecret'), {
       expiresIn: 1440 // expires in 24 hours
     });
-    var serializedUser = user.get();
+    var serializedUser = user.getWithNoPassword();
     serializedUser.token = token;
     res.send(serializedUser);
   });
@@ -51,7 +54,7 @@ app.post('/api/login', function(req, res) {
       if (user.password != req.body.password) {
         res.send({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
-        var token = tk.sign(user, app.get('superSecret'), {
+        var token = tk.sign(user.getWithNoPassword(), app.get('superSecret'), {
           expiresIn: 1440 // expires in 24 hours
         });
 
@@ -69,13 +72,13 @@ app.get('/', function(req, res) {
   res.render('index');
 });
 
-app.get('/api/protected', jwtCheck, function(req, res) {
+app.get('/api/protected', passport.authenticate('jwt', {session: false}), function(req, res) {
   res.send(req.user);
 });
 
-app.use('/api/users', require('./controllers/user'));
-app.use('/api/questions', require('./controllers/question'));
-app.use('/api/alerts', require('./controllers/question'));
+app.use('/api/users', passport.authenticate('jwt', {session: false}), require('./controllers/user'));
+app.use('/api/questions', passport.authenticate('jwt', {session: false}), require('./controllers/question'));
+app.use('/api/alerts', passport.authenticate('jwt', {session: false}), require('./controllers/question'));
 
 // Requests that don't match any of the above should be sent to index
 app.use(function(req, res) {

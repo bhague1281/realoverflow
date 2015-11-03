@@ -1,23 +1,33 @@
-realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', function($scope, $http, $routeParams) {
+realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth', function($scope, $http, $routeParams, Auth) {
   $scope.question = {};
   $scope.comments = [];
 
   //get the question from the API
   $http({
     method: 'GET',
-    url: '/api/questions/' + $routeParams.questionId
-  }).success(function(data) {
-    console.log(data);
-    $scope.question = data;
+    url: '/api/questions/' + $routeParams.questionId,
+    headers: {
+      'Authorization': 'JWT ' + Auth.getToken()
+    }
+  }).then(function success(response) {
+    console.log(response);
+    $scope.question = response.data;
+  }, function error(response) {
+    console.log(response);
   });
 
   //get the question's comments from the API (perhaps modify the question show route to include comments)
   $http({
     method: 'GET',
-    url: '/api/questions/' + $routeParams.questionId + '/comments'
-  }).success(function(data) {
-    console.log(data);
-    $scope.comments = data;
+    url: '/api/questions/' + $routeParams.questionId + '/comments',
+    headers: {
+      'Authorization': 'JWT ' + Auth.getToken()
+    }
+  }).then(function success(response) {
+    console.log(response);
+    $scope.comments = response.data;
+  }, function error(response) {
+    console.log(response);
   });
 
   //on comment form submit, emit the new comment

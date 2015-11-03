@@ -27,12 +27,12 @@
         <li><a href="/about" ng-click="navCollapsed=true">About</a></li>
         <li><a href="/questions" ng-click="navCollapsed=true">Questions</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right" ng-hide="auth.isLoggedIn()">
+      <ul class="nav navbar-nav navbar-right" ng-hide="loggedIn()">
         <li><a ng-click="openLoginModal(); navCollapsed=true">Login</a></li>
         <li><a ng-click="openSignupModal(); navCollapsed=true">Signup</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right" ng-show="auth.isLoggedIn()">
-        <li><a ng-click="navCollapsed=true">Logout</a></li>
+      <ul class="nav navbar-nav navbar-right" ng-show="loggedIn()">
+        <li><a ng-click="logout(); navCollapsed=true">Logout</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </nav>
@@ -47,7 +47,7 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.14.3/ui-bootstrap-tpls.js"></script>
   <script type="text/javascript" src="/socket.io/socket.io.js"></script>
   <script type="text/javascript" src="/app/js/app.js"></script>
-  <script type="text/javascript" src="/app/js/services/auth.js"></script>
+  <script type="text/javascript" src="/app/js/services/AuthService.js"></script>
   <script type="text/javascript" src="/app/js/controllers/HomeCtrl.js"></script>
   <script type="text/javascript" src="/app/js/controllers/AboutCtrl.js"></script>
   <script type="text/javascript" src="/app/js/controllers/QuestionCtrl.js"></script>

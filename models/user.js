@@ -25,6 +25,11 @@ module.exports = function(sequelize, DataTypes) {
     instanceMethods: {
       fullName: function() {
         return this.firstName + ' ' + this.lastName;
+      },
+      getWithNoPassword: function() {
+        var user = this.get();
+        delete user.password;
+        return user;
       }
     }
   });
