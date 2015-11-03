@@ -35,3 +35,13 @@
 h1 {
   margin-top: 0;
 }
+
+.main-view.ng-enter {
+  opacity: 0;
+  animation: fadeIn .5s;
+  animation-delay: .5s;
+}
+
+.main-view.ng-leave {
+  animation: fadeOut .5s;
+}
