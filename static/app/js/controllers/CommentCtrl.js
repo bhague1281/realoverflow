@@ -29,8 +29,10 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', funct
 
   socket.on('server comment', function(comment) {
     console.log(comment);
-    $scope.$apply(function() {
-      $scope.comments.unshift(comment);
-    });
+    if (comment.questionId === $scope.question.id) {
+      $scope.$apply(function() {
+        $scope.comments.unshift(comment);
+      });
+    }
   });
 }]);
