@@ -1,6 +1,10 @@
 /* Needed for UI Bootstrap, since there's no href for these links */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
+.alerts-container {
+  min-height: 75px;
+}
+
 /* hide elements with ng-cloak until loaded */
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none !important;

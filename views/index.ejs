@@ -38,7 +38,7 @@
     </div><!-- /.navbar-collapse -->
   </nav>
 
-  <div class="container" ng-controller="AlertCtrl" ng-cloak>
+  <div class="container alerts-container" ng-controller="AlertCtrl" ng-cloak>
     <uib-alert class="alert" ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)" dismiss-on-timeout="2000">{{ alert.msg }}</uib-alert>
   </div>
 
