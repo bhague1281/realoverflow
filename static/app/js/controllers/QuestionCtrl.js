@@ -1,4 +1,4 @@
-realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', function($scope, $http, Auth) {
+realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', function($scope, $http, Auth, Sockets) {
   $scope.questions = [];
   $scope.error = false;
 
@@ -20,7 +20,7 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', function($sc
   });
 
   $scope.submitQuestion = function() {
-    socket.emit('new question', {
+    Sockets.emitEvent('new question', {
       content: $scope.content,
       userId: Auth.currentUser().id, // replace with current user
       answered: false
@@ -28,7 +28,7 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', function($sc
     $scope.content = '';
   };
 
-  socket.on('server question', function(question) {
+  Sockets.addSocketListener('server question', function(question) {
     console.log(question);
     $scope.$apply(function() {
       $scope.questions.unshift(question);
@@ -36,6 +36,6 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', function($sc
   });
 
   $scope.$on('$destroy', function(event) {
-    socket.removeAllListeners();
+    Sockets.removeSocketListener('server question');
   });
 }]);

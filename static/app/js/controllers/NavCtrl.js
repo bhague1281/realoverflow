@@ -42,6 +42,7 @@ realOverflow
     });
 
     signupModal.result.then(function(user) {
+      console.log(user);
       Auth.signup(user).then(function() {
         Auth.login(user).then(function() {
           Alerts.add('success', 'You have successfully signed up and logged in');

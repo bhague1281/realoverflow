@@ -1,4 +1,4 @@
-realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth', function($scope, $http, $routeParams, Auth) {
+realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth', 'Sockets', function($scope, $http, $routeParams, Auth, Sockets) {
   $scope.question = {};
   $scope.comments = [];
 
@@ -36,7 +36,7 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth
 
   //on comment form submit, emit the new comment
   $scope.submitComment = function() {
-    socket.emit('new comment', {
+    Sockets.emitEvent('new comment', {
       content: $scope.content,
       userId: Auth.currentUser().id,
       questionId: $scope.question.id
@@ -45,7 +45,7 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth
   };
 
   //catch any comments coming from the server that relate to this comment
-  socket.on('server comment', function(comment) {
+  Sockets.addSocketListener('server comment', function(comment) {
     console.log(comment);
     if (comment.questionId === $scope.question.id) {
       $scope.$apply(function() {
@@ -55,6 +55,6 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth
   });
 
   $scope.$on('$destroy', function(event) {
-    socket.removeAllListeners();
+    Sockets.removeSocketListener('server comment');
   });
 }]);

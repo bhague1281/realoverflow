@@ -1,5 +1,4 @@
 var realOverflow = angular.module('RealOverflow', ['ngRoute', 'ui.bootstrap', 'ngAnimate']);
-var socket = io();
 
 realOverflow.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider
