@@ -35,19 +35,21 @@ app.post('/api/login', function(req, res) {
     if (!user) {
       res.send({ success: false, message: 'Authentication failed. User not found.' });
     } {
-      if (user.password != req.body.password) {
-        res.send({ success: false, message: 'Authentication failed. Wrong password.' });
-      } else {
-        var token = tk.sign(user.getWithNoPassword(), app.get('superSecret'), {
-          expiresIn: 1440 // expires in 24 hours
-        });
+      user.checkPassword(req.body.password, function(err, result) {
+        if (err || !result) {
+          res.send({ success: false, message: 'Authentication failed. Wrong password.' });
+        } else {
+          var token = tk.sign(user.getWithNoPassword(), app.get('superSecret'), {
+            expiresIn: 1440 // expires in 24 hours
+          });
 
-        res.send({
-          success: true,
-          message: 'Authenticated!',
-          token: token
-        });
-      }
+          res.send({
+            success: true,
+            message: 'Authenticated!',
+            token: token
+          });
+        }
+      });
     }
   });
 });
