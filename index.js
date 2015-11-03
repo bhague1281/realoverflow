@@ -15,20 +15,30 @@ app.use(bodyParser.json());
 app.use(express.static(__dirname + '/static'));
 
 app.post('/api/signup', function(req, res) {
-  db.user.create({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email,
-    password: req.body.password
-  }).then(function(user) {
-    var token = tk.sign(user, app.get('superSecret'), {
-      expiresIn: 1440 // expires in 24 hours
-    });
-    var serializedUser = user.getWithNoPassword();
-    serializedUser.token = token;
-    res.send(serializedUser);
+  db.user.findOrCreate({
+    where: {email: req.body.email},
+    defaults: {
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      password: req.body.password
+    }
+  }).spread(function(user, created) {
+    if (created) {
+      var token = tk.sign(user, app.get('superSecret'), {
+        expiresIn: 1440 // expires in 24 hours
+      });
+      var serializedUser = user.getWithNoPassword();
+      serializedUser.token = token;
+      res.send(serializedUser);
+    } else {
+      res.status(401).send({message: 'A user with that email address already exists'});
+    }
   }).catch(function(error) {
-    res.status(500).send({message: error});
+    if (error.message) {
+      res.status(500).send({message: error});
+    } else {
+      res.status(500).send({message: 'An error occurred. Try again.'});
+    }
   });
 });
 

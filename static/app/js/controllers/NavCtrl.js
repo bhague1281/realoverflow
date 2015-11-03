@@ -42,17 +42,15 @@ realOverflow
     });
 
     signupModal.result.then(function(user) {
-      console.log(user);
       Auth.signup(user).then(function() {
         Auth.login(user).then(function() {
           Alerts.add('success', 'You have successfully signed up and logged in');
-          console.log('logged in!');
           $route.reload();
         }).catch(function(error) {
           Alerts.add('danger', error.data.message);
         });
       }).catch(function(error) {
-        Alerts.add('danger', 'An error occurred when signing up. Try again.');
+        Alerts.add('danger', error.data.message);
       });
     });
   };
