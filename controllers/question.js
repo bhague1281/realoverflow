@@ -28,7 +28,8 @@ questionRouter.route('/:questionId')
   .get(function(req, res) {
     db.question.find({
       where: {id: req.params.questionId},
-      include: [db.user]
+      include: [db.user],
+      order: '"createdAt" DESC'
     }).then(function(question) {
       res.send(question);
     });
@@ -50,7 +51,8 @@ commentRouter.route('/')
   .get(function(req, res) {
     db.comment.findAll({
       where: {questionId: req.params.questionId},
-      include: [db.user]
+      include: [db.user],
+      order: '"createdAt" DESC'
     }).then(function(comments) {
       res.send(comments);
     });
