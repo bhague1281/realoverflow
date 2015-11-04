@@ -12,7 +12,7 @@
   <title></title>
 </head>
 <body ng-app="RealOverflow">
-  <nav class="navbar navbar-default" role="navigation" ng-controller="NavCtrl">
+  <nav class="navbar navbar-default" role="navigation" ng-controller="NavCtrl" ng-cloak>
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" ng-click="navCollapsed = !navCollapsed">
         <span class="sr-only">Toggle navigation</span>
@@ -28,14 +28,14 @@
         <li><a href="/about" ng-click="navCollapsed=true">About</a></li>
         <li><a href="/questions" ng-click="navCollapsed=true">Questions</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right auth-btns" ng-hide="loggedIn()" ng-cloak>
+      <ul class="nav navbar-nav navbar-right auth-btns" ng-hide="loggedIn()">
         <li><a ng-click="openLoginModal(); navCollapsed=true">Login</a></li>
         <li><a ng-click="openSignupModal(); navCollapsed=true">Signup</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right auth-btns" ng-show="loggedIn()" ng-cloak>
-        <li><p class="navbar-text">{{ currentUser().firstName }}</p></li>
+      <ul class="nav navbar-nav navbar-right auth-btns" ng-show="loggedIn()">
         <li><a ng-click="logout(); navCollapsed=true">Logout</a></li>
       </ul>
+      <p class="navbar-text navbar-right auth-btns" ng-show="loggedIn()"><strong>Logged in as {{ currentUser().firstName }}</strong></p>
     </div><!-- /.navbar-collapse -->
   </nav>
 
@@ -43,9 +43,15 @@
     <uib-alert class="alert" ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)" dismiss-on-timeout="4000">{{ alert.msg }}</uib-alert>
   </div>
 
-  <div class="container">
+  <div class="container main-view-container">
     <div class="main-view" ng-view></div>
   </div>
+
+  <footer class="footer">
+    <div class="container">
+      <p class="text-muted">&copy; Copyright 2015 Brian Hague. All Rights Reserved.</p>
+    </div>
+  </footer>
 
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular.js"></script>
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.7/angular-route.js"></script>

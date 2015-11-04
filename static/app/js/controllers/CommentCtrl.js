@@ -1,4 +1,4 @@
-realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth', 'Sockets', function($scope, $http, $routeParams, Auth, Sockets) {
+realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routeParams', 'Auth', 'Sockets', function($scope, $http, $window, $routeParams, Auth, Sockets) {
   $scope.question = {};
   $scope.comments = [];
   $scope.room = '';
@@ -6,6 +6,10 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth
   $scope.loggedIn = function() {
     return Auth.isLoggedIn();
   };
+
+  $scope.goBack = function() {
+    $window.history.back();
+  }
 
   //get the question from the API
   $http({

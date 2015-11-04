@@ -33,14 +33,14 @@ questionRouter.route('/:questionId')
       res.send(question);
     });
   })
-  .put(function(req, res) {
+  .put(passport.authenticate('jwt', {session: false}), function(req, res) {
     db.question.findById(req.params.questionId).then(function(question) {
       question.setAttributes(req.body).then(function(question) {
         res.send(question);
       });
     })
   })
-  .delete(function(req, res) {
+  .delete(passport.authenticate('jwt', {session: false}), function(req, res) {
     db.question.destroy({where: {id: req.params.questionId}}).then(function() {
       res.status(200).send();
     });
@@ -55,7 +55,7 @@ commentRouter.route('/')
       res.send(comments);
     });
   })
-  .post(function(req, res) {
+  .post(passport.authenticate('jwt', {session: false}), function(req, res) {
     db.comment.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
