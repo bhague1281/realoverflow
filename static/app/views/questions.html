@@ -21,7 +21,7 @@
       </div>
       <div class="col-xs-10">
         <h4><a ng-href="/questions/{{ question.id }}/comments">{{ question.content }}</a>
-        <small>- {{ question.user.firstName }} {{ question.user.lastName }}</small>
+        <small>- {{ question.user.firstName }} {{ question.user.lastName }} asked this <span am-time-ago="question.createdAt"></span></small>
       </h4>
       </div>
     </div>
