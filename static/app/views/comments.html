@@ -30,5 +30,8 @@
 
 <div class="well item" ng-repeat="comment in comments track by comment.id">
   <p>{{ comment.content }}</p>
-  <small>- {{ comment.user.firstName }}  {{ comment.user.lastName }}</small>
+  <small>- 
+    <strong>{{ comment.user.firstName }}  {{ comment.user.lastName }}</strong>
+     commented <span am-time-ago="comment.createdAt"></span>
+  </small>
 </div>
