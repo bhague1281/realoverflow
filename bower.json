@@ -1,0 +1,32 @@
+{
+  "name": "realoverflow",
+  "description": "A realtime question-answer app",
+  "main": "index.js",
+  "authors": [
+    "Brian Hague"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "question",
+    "answer",
+    "app"
+  ],
+  "homepage": "https://github.com/bhague1281/realoverflow",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "animate.css": "animate-css#~3.4.0",
+    "bootstrap": "~3.3.5",
+    "font-awesome": "fontawesome#~4.4.0",
+    "angular-bootstrap": "~0.14.3",
+    "angular": "~1.4.7",
+    "angular-animate": "~1.4.7",
+    "angular-route": "~1.4.7"
+  }
+}
