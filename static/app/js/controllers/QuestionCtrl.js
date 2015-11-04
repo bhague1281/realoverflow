@@ -8,10 +8,7 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
 
   $http({
     method: 'GET',
-    url: '/api/questions',
-    headers: {
-      'Authorization': 'JWT ' + Auth.getToken()
-    }
+    url: '/api/questions'
   }).then(function success(response) {
     console.log(response);
     $scope.questions = response.data;

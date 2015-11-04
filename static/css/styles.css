@@ -38,10 +38,10 @@ h1 {
 
 .main-view.ng-enter {
   opacity: 0;
-  animation: fadeIn .5s;
-  animation-delay: .5s;
+  animation: fadeInLeft .25s;
+  animation-delay: .25s;
 }
 
 .main-view.ng-leave {
-  animation: fadeOut .5s;
+  animation: fadeOutRight .25s;
 }

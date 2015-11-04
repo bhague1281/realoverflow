@@ -1,19 +1,16 @@
 realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth', 'Sockets', function($scope, $http, $routeParams, Auth, Sockets) {
   $scope.question = {};
   $scope.comments = [];
-  $scope.room = ''
+  $scope.room = '';
 
   $scope.loggedIn = function() {
     return Auth.isLoggedIn();
-  }
+  };
 
   //get the question from the API
   $http({
     method: 'GET',
-    url: '/api/questions/' + $routeParams.questionId,
-    headers: {
-      'Authorization': 'JWT ' + Auth.getToken()
-    }
+    url: '/api/questions/' + $routeParams.questionId
   }).then(function success(response) {
     console.log(response);
     $scope.question = response.data;
@@ -26,10 +23,7 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$routeParams', 'Auth
   //get the question's comments from the API (perhaps modify the question show route to include comments)
   $http({
     method: 'GET',
-    url: '/api/questions/' + $routeParams.questionId + '/comments',
-    headers: {
-      'Authorization': 'JWT ' + Auth.getToken()
-    }
+    url: '/api/questions/' + $routeParams.questionId + '/comments'
   }).then(function success(response) {
     console.log(response);
     $scope.comments = response.data;

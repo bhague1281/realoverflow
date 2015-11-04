@@ -40,7 +40,7 @@
   </nav>
 
   <div class="container alerts-container" ng-controller="AlertCtrl" ng-cloak>
-    <uib-alert class="alert" ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)" dismiss-on-timeout="2000">{{ alert.msg }}</uib-alert>
+    <uib-alert class="alert" ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)" dismiss-on-timeout="4000">{{ alert.msg }}</uib-alert>
   </div>
 
   <div class="container">

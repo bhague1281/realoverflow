@@ -1,5 +1,9 @@
 var realOverflow = angular.module('RealOverflow', ['ngRoute', 'ui.bootstrap', 'ngAnimate']);
 
+realOverflow.run(['$http', 'Auth', function($http, Auth) {
+  $http.defaults.headers.common.Authorization = 'JWT ' + Auth.getToken();
+}]);
+
 realOverflow.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider
   .when('/', {
