@@ -12,7 +12,10 @@ module.exports = function(sequelize, DataTypes) {
         isEmail: true
       }
     },
-    password: DataTypes.STRING,
+    password: {
+      type: DataTypes.STRING,
+      len: [8, 99]
+    },
     admin: {
       type: DataTypes.BOOLEAN,
       defaultValue: false
