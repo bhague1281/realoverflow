@@ -9,7 +9,10 @@ questionRouter.use('/:questionId/comments', commentRouter);
 
 questionRouter.route('/')
   .get(function(req, res) {
-    db.question.findAll({include: [db.user]}).then(function(questions) {
+    db.question.findAll({
+      include: [db.user],
+      order: '"createdAt" DESC'
+    }).then(function(questions) {
       res.send(questions);
     });
   })
