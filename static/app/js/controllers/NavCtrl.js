@@ -1,5 +1,5 @@
 realOverflow
-.controller('NavCtrl', ['$scope', '$uibModal', '$route', 'Auth', 'Alerts', function($scope, $uibModal, $route, Auth, Alerts) {
+.controller('NavCtrl', ['$scope', '$uibModal', '$route', 'Auth', 'Alerts', 'Sockets', function($scope, $uibModal, $route, Auth, Alerts, Sockets) {
   $scope.navCollapsed = true;
   $scope.loggedIn = function() {
     return Auth.isLoggedIn();
@@ -55,6 +55,12 @@ realOverflow
       });
     });
   };
+
+  //catch any comments coming from the server that relate to this comment
+  Sockets.addSocketListener('alert', function(alert) {
+    console.log(alert);
+    Alerts.add(alert.type, alert.message);
+  });
 }])
 .controller('LoginInstanceCtrl', ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {
   $scope.user = {};
