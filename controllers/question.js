@@ -9,7 +9,7 @@ questionRouter.use('/:questionId/comments', commentRouter);
 questionRouter.route('/')
   .get(function(req, res) {
     var params = {
-      include: [db.user],
+      include: [db.user, db.comment],
       order: '"createdAt" DESC'
     };
 

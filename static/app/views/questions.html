@@ -25,7 +25,15 @@
         <br>
         <small> 
           <strong>{{ question.user.firstName }} {{ question.user.lastName }}</strong>
-           asked this <span am-time-ago="question.createdAt"></span></small>
+           asked this <span am-time-ago="question.createdAt"></span>
+        </small>
+        <br><br>
+        <small>
+          <ng-pluralize count="question.comments.length"
+             when="{'0': 'No comments',
+                    'one': '1 comment',
+                    'other': '{} comments'}"></ng-pluralize>
+        </small>
       </h4>
       </div>
     </div>
