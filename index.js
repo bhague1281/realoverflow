@@ -35,7 +35,7 @@ app.post('/api/signup', function(req, res) {
     }
   }).catch(function(error) {
     if (error.message) {
-      res.status(500).send({message: error});
+      res.status(500).send({message: error.message});
     } else {
       res.status(500).send({message: 'An error occurred. Try again.'});
     }
