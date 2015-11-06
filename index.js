@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
+var favicon = require('express-favicon');
 var db = require('./models');
 var passport = require('./config/passportJwt');
 var tk = require('jsonwebtoken');
@@ -13,6 +14,7 @@ app.set('superSecret', 'secret');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/static')));
+app.use(favicon(__dirname + '/static/favicon.ico'));
 
 app.post('/api/signup', function(req, res) {
   db.user.findOrCreate({
