@@ -2,32 +2,22 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
   $scope.questions = [];
   $scope.error = false;
   $scope.scrollDisabled = false;
+  $scope.newQuestion = {
+    content: '',
+    userId: Auth.currentUser().id
+  }
 
   $scope.loggedIn = function() {
     return Auth.isLoggedIn();
   }
 
-  // $http({
-  //   method: 'GET',
-  //   url: '/api/questions',
-  //   params: {limit: 10}
-  // }).then(function success(response) {
-  //   console.log(response);
-  //   $scope.questions = response.data;
-  // }, function error(response) {
-  //   $scope.error = true;
-  // });
-
   $scope.submitQuestion = function() {
-    Sockets.emitEvent('new question', {
-      content: $scope.content,
-      userId: Auth.currentUser().id, // replace with current user
-      answered: false
-    });
-    $scope.content = '';
+    Sockets.emitEvent('new question', $scope.newQuestion);
+    $scope.newQuestion.content = '';
   };
 
   $scope.loadQuestions = function() {
+    if ($scope.scrollDisabled) return;
     $scope.scrollDisabled = true;
     $http({
       method: 'GET',
@@ -42,6 +32,8 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
       $scope.scrollDisabled = false;
     });
   }
+
+  $scope.loadQuestions();
 
   Sockets.addSocketListener('server question', function(question) {
     console.log(question);

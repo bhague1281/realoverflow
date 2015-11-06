@@ -39,28 +39,36 @@ module.exports = function(io) {
     socket.on('new question', function(question) {
       if (rateLimit.cutOffSocket(socket.id)) return socket.emit('alert', {type: 'danger', message:'You\'ve reached the request limit for the day'});
 
-      console.log('new question created', question);
       db.question.create(question).then(function(question) {
         db.question.find({
           where: {id: question.id},
           include: [db.user]
         }).then(function(question) {
           io.emit('server question', question);
-        })
+        }).catch(function(err) {
+          socket.emit('alert', {type: 'danger', message: err.message});
+        });
+      }).catch(function(err) {
+        socket.emit('alert', {type: 'danger', message: err.message});
       });
     });
 
     socket.on('new comment', function(comment) {
       if (rateLimit.cutOffSocket(socket.id)) return socket.emit('alert', {type: 'danger', message:'You\'ve reached the request limit for the day'});
       
-      console.log('new comment created', comment);
       db.comment.create(comment).then(function(comment) {
         db.comment.find({
           where: {id: comment.id},
           include: [db.user]
         }).then(function(comment) {
           io.in('question' + comment.questionId).emit('server comment', comment);
+        }).catch(function(err) {
+          console.log(err);
+          socket.emit('alert', {type: 'danger', message: err.message});
         });
+      }).catch(function(err) {
+        console.log(err);
+        socket.emit('alert', {type: 'danger', message: err.message});
       });
     });
 

@@ -56,10 +56,13 @@ realOverflow
     });
   };
 
-  //catch any comments coming from the server that relate to this comment
   Sockets.addSocketListener('alert', function(alert) {
     console.log(alert);
-    Alerts.add(alert.type, alert.message);
+    $scope.$apply(function() { Alerts.add(alert.type, alert.message); });
+  });
+
+  $scope.$on('$destroy', function(event) {
+    Sockets.removeSocketListener('alert');
   });
 }])
 .controller('LoginInstanceCtrl', ['$scope', '$uibModalInstance', function($scope, $uibModalInstance) {

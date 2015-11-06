@@ -8,13 +8,23 @@ module.exports = function(sequelize, DataTypes) {
     lastName: DataTypes.STRING,
     email: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
-        isEmail: true
+        isEmail: {
+          args: true,
+          msg: 'Email must be valid'
+        }
       }
     },
     password: {
       type: DataTypes.STRING,
-      len: [8, 99]
+      allowNull: false,
+      validate: {
+        len: {
+          args: [8, 99],
+          msg: 'Password must be between 8 and 99 characters long'
+        }
+      }
     },
     admin: {
       type: DataTypes.BOOLEAN,

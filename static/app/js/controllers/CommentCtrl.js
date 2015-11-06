@@ -2,6 +2,11 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
   $scope.question = {};
   $scope.comments = [];
   $scope.room = '';
+  $scope.newComment = {
+    content: '',
+    userId: Auth.currentUser().id,
+    questionId: null
+  }
 
   $scope.loggedIn = function() {
     return Auth.isLoggedIn();
@@ -18,6 +23,7 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
   }).then(function success(response) {
     console.log(response);
     $scope.question = response.data;
+    $scope.newComment.questionId = $scope.question.id;
     $scope.room = 'question' + $scope.question.id;
     Sockets.emitEvent('join room', {room: $scope.room});
   }, function error(response) {
@@ -37,12 +43,8 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
 
   //on comment form submit, emit the new comment
   $scope.submitComment = function() {
-    Sockets.emitEvent('new comment', {
-      content: $scope.content,
-      userId: Auth.currentUser().id,
-      questionId: $scope.question.id
-    });
-    $scope.content = '';
+    Sockets.emitEvent('new comment', $scope.newComment);
+    $scope.newComment.content = '';
   };
 
   //catch any comments coming from the server that relate to this comment

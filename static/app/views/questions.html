@@ -1,7 +1,7 @@
 <form ng-submit="submitQuestion()" role="form" ng-show="loggedIn()">
   <div class="form-group">
     <label for="content">Submit a Question</label>
-    <textarea type="text" class="form-control" id="content" placeholder="Be descriptive. Saying vague words like 'I have an error' will result in your question being deleted without notice." ng-model="content"></textarea>
+    <textarea type="text" class="form-control" id="content" placeholder="Be descriptive. Saying vague words like 'I have an error' will result in your question being deleted without notice." ng-model="newQuestion.content"></textarea>
   </div>
 
   <button type="submit" class="btn btn-primary">Submit</button>
