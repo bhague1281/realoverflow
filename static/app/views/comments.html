@@ -1,7 +1,4 @@
 <div class="row">
-  <div class="col-xs-1">
-    <a ng-click="goBack()" class="btn btn-info">&larr; Back</a>
-  </div>
   <div class="col-xs-1 text-center">
     <span class="glyphicon glyphicon-arrow-up" ng-click="up()" aria-hidden="true"></span>
     <h4>{{ question.score }}</h4>
@@ -9,8 +6,12 @@
   </div>
   <div class="col-xs-10">
     <h1>{{ question.content }}</a>
-    <small>- {{ question.user.firstName }} {{ question.user.lastName }}</small>
+    <br>
+    <small>{{ question.user.firstName }} {{ question.user.lastName }}</small>
     </h1>
+  </div>
+  <div class="col-xs-1">
+    <a ng-click="goBack()" class="btn btn-info">&larr; Back</a>
   </div>
 </div>
 
@@ -30,7 +31,7 @@
 
 <div class="well item" ng-repeat="comment in comments track by comment.id">
   <p>{{ comment.content }}</p>
-  <small>- 
+  <small>
     <strong>{{ comment.user.firstName }}  {{ comment.user.lastName }}</strong>
      commented <span am-time-ago="comment.createdAt"></span>
   </small>
