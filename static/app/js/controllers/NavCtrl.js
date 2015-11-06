@@ -23,9 +23,9 @@ realOverflow
     });
 
     loginModal.result.then(function(user) {
-      console.log(user);
+      // console.log(user);
       Auth.login(user).then(function() {
-        console.log('logged in!');
+        // console.log('logged in!');
         Alerts.add('success', 'You have successfully logged in');
         $route.reload();
       }).catch(function(error) {
@@ -42,7 +42,7 @@ realOverflow
     });
 
     signupModal.result.then(function(user) {
-      console.log(user);
+      // console.log(user);
       Auth.signup(user).then(function() {
         Auth.login(user).then(function() {
           Alerts.add('success', 'You have successfully signed up and logged in');
@@ -57,7 +57,7 @@ realOverflow
   };
 
   Sockets.addSocketListener('alert', function(alert) {
-    console.log(alert);
+    // console.log(alert);
     $scope.$apply(function() { Alerts.add(alert.type, alert.message); });
   });
 

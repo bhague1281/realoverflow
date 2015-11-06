@@ -1,4 +1,5 @@
 realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routeParams', 'Auth', 'Sockets', function($scope, $http, $window, $routeParams, Auth, Sockets) {
+  $scope.pageClass = 'page-comments';
   $scope.question = {};
   $scope.comments = [];
   $scope.room = '';
@@ -21,13 +22,13 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
     method: 'GET',
     url: '/api/questions/' + $routeParams.questionId
   }).then(function success(response) {
-    console.log(response);
+    // console.log(response);
     $scope.question = response.data;
     $scope.newComment.questionId = $scope.question.id;
     $scope.room = 'question' + $scope.question.id;
     Sockets.emitEvent('join room', {room: $scope.room});
   }, function error(response) {
-    console.log(response);
+    // console.log(response);
   });
 
   //get the question's comments from the API (perhaps modify the question show route to include comments)
@@ -35,10 +36,10 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
     method: 'GET',
     url: '/api/questions/' + $routeParams.questionId + '/comments'
   }).then(function success(response) {
-    console.log(response);
+    // console.log(response);
     $scope.comments = response.data;
   }, function error(response) {
-    console.log(response);
+    // console.log(response);
   });
 
   //on comment form submit, emit the new comment
@@ -52,7 +53,7 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
       method: 'POST',
       url: '/api/questions/' + $scope.question.id + '/up'
     }).then(function success(response) {
-      console.log(response);
+      // console.log(response);
       $scope.question.score += 1;
     });
   };
@@ -62,14 +63,14 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
       method: 'POST',
       url: '/api/questions/' + $scope.question.id + '/down'
     }).then(function success(response) {
-      console.log(response);
+      // console.log(response);
       $scope.question.score -= 1;
     });
   };
 
   //catch any comments coming from the server that relate to this comment
   Sockets.addSocketListener('server comment', function(comment) {
-    console.log(comment);
+    // console.log(comment);
     if (comment.questionId === $scope.question.id) {
       $scope.$apply(function() {
         $scope.comments.unshift(comment);

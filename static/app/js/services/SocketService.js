@@ -4,7 +4,7 @@ realOverflow.service('Sockets', [function() {
 
   return {
     addSocketListener: function(event, callback) {
-      console.log('added listener ' + event)
+      // console.log('added listener ' + event)
       if (events.indexOf(event) === -1) {
         events.push(event);
         socket.on(event, callback);

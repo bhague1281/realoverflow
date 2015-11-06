@@ -1,4 +1,5 @@
 realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', function($scope, $http, Auth, Sockets) {
+  $scope.pageClass = 'page-questions';
   $scope.questions = [];
   $scope.error = false;
   $scope.scrollDisabled = false;
@@ -25,7 +26,7 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
       url: '/api/questions',
       params: {limit: 20, offset: $scope.questions.length}
     }).then(function success(response) {
-      console.log(response);
+      // console.log(response);
       $scope.questions.push.apply($scope.questions, response.data);
       if (response.data.length) $scope.scrollDisabled = false;
     }, function error(response) {
@@ -41,7 +42,7 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
       method: 'POST',
       url: '/api/questions/' + $scope.questions[idx].id + '/up'
     }).then(function success(response) {
-      console.log(response);
+      // console.log(response);
       $scope.questions[idx].score += 1;
     });
   };
@@ -51,13 +52,13 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
       method: 'POST',
       url: '/api/questions/' + $scope.questions[idx].id + '/down'
     }).then(function success(response) {
-      console.log(response);
+      // console.log(response);
       $scope.questions[idx].score -= 1;
     });
   };
 
   Sockets.addSocketListener('server question', function(question) {
-    console.log(question);
+    // console.log(question);
     $scope.$apply(function() {
       $scope.questions.unshift(question);
     });

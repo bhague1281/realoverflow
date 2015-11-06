@@ -87,14 +87,40 @@ h1 {
   margin-top: 0;
 }
 
-.main-view.ng-enter {
+.page-comments.ng-enter {
   opacity: 0;
   animation: fadeInLeft .25s;
   animation-delay: .25s;
 }
-
-.main-view.ng-leave {
+.page-comments.ng-leave {
   animation: fadeOutRight .25s;
+}
+
+.page-home.ng-enter {
+  opacity: 0;
+  animation: fadeIn .25s;
+  animation-delay: .25s;
+}
+.page-home.ng-leave {
+  animation: fadeOut .25s;
+}
+
+.page-questions.ng-enter {
+  opacity: 0;
+  animation: fadeIn .25s;
+  animation-delay: .25s;
+}
+.page-questions.ng-leave {
+  animation: fadeOut .25s;
+}
+
+.page-about.ng-enter {
+  opacity: 0;
+  animation: fadeIn .25s;
+  animation-delay: .25s;
+}
+.page-about.ng-leave {
+  animation: fadeOut .25s;
 }
 
 .img-center {

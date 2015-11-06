@@ -16,7 +16,7 @@ realOverflow.factory('Auth', ['$http', '$window', function($http, $window) {
         var payload = JSON.parse($window.atob(token.split('.')[1]));
         return payload.exp > Date.now()/1000;
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         return false;
       }
     } else {
