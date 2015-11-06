@@ -15,12 +15,12 @@
 <div infinite-scroll="loadQuestions()" infinite-scroll-disabled="scrollDisabled">
   <div class="well item" ng-repeat="question in questions track by question.id">
     <div class="row">
-      <div class="col-xs-1 text-center">
+      <div class="col-xs-2 text-center">
         <span class="glyphicon glyphicon-arrow-up" ng-click="up($index)" aria-hidden="true"></span>
         <h4>{{ question.score }}</h4>
         <span class="glyphicon glyphicon-arrow-down" ng-click="down($index)" aria-hidden="true"></span>
       </div>
-      <div class="col-xs-11">
+      <div class="col-xs-10">
         <h4><a ng-href="/questions/{{ question.id }}/comments">{{ question.content }}</a>
         <br>
         <small> 
