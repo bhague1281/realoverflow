@@ -6,7 +6,6 @@ var commentRouter = express.Router({mergeParams: true});
 
 questionRouter.use('/:questionId/comments', commentRouter);
 
-
 questionRouter.route('/')
   .get(function(req, res) {
     var params = {
@@ -54,6 +53,24 @@ questionRouter.route('/:questionId')
       res.status(200).send();
     });
   });
+
+questionRouter.post('/:questionId/up', function(req, res) {
+  db.question.findById(req.params.questionId).then(function(question) {
+    question.score += 1;
+    question.save().then(function() {
+      res.send({message: 'Upvoted to ' + question.score})
+    })
+  });
+});
+
+questionRouter.post('/:questionId/down', function(req, res) {
+  db.question.findById(req.params.questionId).then(function(question) {
+    question.score -= 1;
+    question.save().then(function() {
+      res.send({message: 'Downvoted to ' + question.score})
+    })
+  });
+});
 
 commentRouter.route('/')
   .get(function(req, res) {

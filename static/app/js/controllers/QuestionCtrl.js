@@ -35,6 +35,26 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
 
   $scope.loadQuestions();
 
+  $scope.up = function(idx) {
+    $http({
+      method: 'POST',
+      url: '/api/questions/' + $scope.questions[idx].id + '/up'
+    }).then(function success(response) {
+      console.log(response);
+      $scope.questions[idx].score += 1;
+    });
+  };
+
+  $scope.down = function(idx) {
+    $http({
+      method: 'POST',
+      url: '/api/questions/' + $scope.questions[idx].id + '/down'
+    }).then(function success(response) {
+      console.log(response);
+      $scope.questions[idx].score -= 1;
+    });
+  }
+
   Sockets.addSocketListener('server question', function(question) {
     console.log(question);
     $scope.$apply(function() {
