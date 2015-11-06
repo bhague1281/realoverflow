@@ -2,6 +2,7 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
   $scope.questions = [];
   $scope.error = false;
   $scope.scrollDisabled = false;
+  $scope.searchFilter = '';
   $scope.newQuestion = {
     content: '',
     userId: Auth.currentUser() ? Auth.currentUser().id : null

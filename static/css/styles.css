@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Ubuntu:400,500,700);
-@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:600,700);
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900);
 
 /* Needed for UI Bootstrap, since there's no href for these links */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
@@ -8,18 +8,54 @@ body {
   font-family: 'Ubuntu', sans-serif;
 }
 
-h1,h2,h3,h4,h5,h6 {
+h1,h2,h3,h4,h5,h6,.navbar {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
 .alerts-container {
   min-height: 65px;
+  margin-bottom: 10px;
 }
 
 .row {
   margin-bottom: 25px;
   margin-left: 0;
   margin-right: 0;
+}
+
+.well {
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+  -webkit-box-shadow:  none;
+  background: white;
+  border-bottom: 1px solid #eee;
+}
+
+#about {
+  border: 0;
+}
+
+blockquote {
+  border-left: 5px solid #217987;
+}
+
+.btn-info, .btn-primary {
+  background: #217987;
+}
+
+.navbar-brand .stack {
+  color: red;
+  font-weight: 900;
+}
+
+textarea {
+  max-width: 100%;
+}
+
+.btn, .btn-primary, .btn-warning, .btn-danger {
+  border-radius: 0;
+  border: 0;
 }
 
 /* hide elements with ng-cloak until loaded */
@@ -36,9 +72,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 .alert {
-  position: absolute;
-  width: inherit;
-  z-index: 999;
+  margin-bottom: 0;
 }
 
 .alert.ng-enter {
@@ -67,6 +101,27 @@ h1 {
   margin: 0 auto;
 }
 
+button.close span {
+  display: none;
+}
+
+.modal-content {
+  border-radius: 0;
+}
+
+.form-control {
+  border-radius: 0;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  border: none;
+  border-bottom: 1px solid #777;
+}
+
+.form-control:focus {
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
 
 /* footer code from Bootstrap */
 
@@ -86,8 +141,16 @@ body {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
-  background-color: #f5f5f5;
   padding: 15px;
+}
+
+.navbar-default {
+  background: white;
+}
+
+.navbar-toggle {
+  border-radius: 0;
+  border: 0;
 }
 
 .glyphicon-arrow-up, .glyphicon-arrow-down {
