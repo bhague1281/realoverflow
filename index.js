@@ -25,7 +25,7 @@ app.post('/api/signup', function(req, res) {
   }).spread(function(user, created) {
     if (created) {
       var token = tk.sign(user, process.env.JWT_SECRET, {
-        expiresIn: 1440 // expires in 24 hours
+        expiresIn: process.env.TOKEN_EXPIRATION_TIME // expires in 24 hours
       });
       var serializedUser = user.getWithNoPassword();
       serializedUser.token = token;
@@ -52,7 +52,7 @@ app.post('/api/login', function(req, res) {
           res.status(401).send({ success: false, message: 'Authentication failed. Wrong password.' });
         } else {
           var token = tk.sign(user.getWithNoPassword(), process.env.JWT_SECRET, {
-            expiresIn: 1440 // expires in 24 hours
+            expiresIn: process.env.TOKEN_EXPIRATION_TIME // expires in 24 hours
           });
 
           res.send({
