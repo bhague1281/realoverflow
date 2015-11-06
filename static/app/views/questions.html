@@ -12,7 +12,8 @@
 
 <hr>
 
-<div class="well item" ng-repeat="question in questions track by question.id">
+<div infinite-scroll="loadQuestions()" infinite-scroll-disabled="scrollDisabled">
+  <div class="well item" ng-repeat="question in questions track by question.id">
     <div class="row">
       <div class="col-xs-2 text-center">
         <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
@@ -28,3 +29,4 @@
       </div>
     </div>
   </div>
+</div>

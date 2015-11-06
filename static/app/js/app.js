@@ -1,4 +1,4 @@
-var realOverflow = angular.module('RealOverflow', ['ngRoute', 'ui.bootstrap', 'ngAnimate', 'angularMoment']);
+var realOverflow = angular.module('RealOverflow', ['ngRoute', 'ui.bootstrap', 'ngAnimate', 'angularMoment', 'infinite-scroll']);
 
 realOverflow.run(['$http', 'Auth', function($http, Auth) {
   $http.defaults.headers.common.Authorization = 'JWT ' + Auth.getToken();

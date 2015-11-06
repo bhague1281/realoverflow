@@ -60,20 +60,23 @@
     </div>
   </div>
   <div class="col-sm-5">
-    <div class="well item" ng-repeat="question in questions track by question.id">
-      <div class="row">
-        <div class="col-xs-2 text-center">
-          <h4>{{ question.score }}</h4>
-        </div>
-        <div class="col-xs-10">
-          <h4><a ng-href="/questions/{{ question.id }}/comments">{{ question.content }}</a>
-          <small>-
-            <strong>{{ question.user.firstName }} {{ question.user.lastName }}</strong>
-            asked this <span am-time-ago="question.createdAt"></span>
-          </small>
-        </h4>
+    <div infinite-scroll="homeScroll=false; loadQuestions(); homeScroll=true" infinite-scroll-disabled="homeScroll">
+      <div class="well item" ng-repeat="question in questions track by question.id">
+        <div class="row">
+          <div class="col-xs-2 text-center">
+            <h4>{{ question.score }}</h4>
+          </div>
+          <div class="col-xs-10">
+            <h4><a ng-href="/questions/{{ question.id }}/comments">{{ question.content }}</a>
+            <small>-
+              <strong>{{ question.user.firstName }} {{ question.user.lastName }}</strong>
+              asked this <span am-time-ago="question.createdAt"></span>
+            </small>
+          </h4>
+          </div>
         </div>
       </div>
     </div>
+    <p class="lead">See more questions on the <a href="/questions">Questions page</a>
   </div>
 </div>
