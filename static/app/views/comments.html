@@ -3,9 +3,9 @@
     <a ng-click="goBack()" class="btn btn-info">&larr; Back</a>
   </div>
   <div class="col-xs-1 text-center">
-    <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-arrow-up" ng-click="up()" aria-hidden="true"></span>
     <h4>{{ question.score }}</h4>
-    <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+    <span class="glyphicon glyphicon-arrow-down" ng-click="down()" aria-hidden="true"></span>
   </div>
   <div class="col-xs-10">
     <h1>{{ question.content }}</a>

@@ -53,7 +53,7 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
       console.log(response);
       $scope.questions[idx].score -= 1;
     });
-  }
+  };
 
   Sockets.addSocketListener('server question', function(question) {
     console.log(question);

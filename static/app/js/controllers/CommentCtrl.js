@@ -47,6 +47,26 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
     $scope.newComment.content = '';
   };
 
+  $scope.up = function(idx) {
+    $http({
+      method: 'POST',
+      url: '/api/questions/' + $scope.question.id + '/up'
+    }).then(function success(response) {
+      console.log(response);
+      $scope.question.score += 1;
+    });
+  };
+
+  $scope.down = function(idx) {
+    $http({
+      method: 'POST',
+      url: '/api/questions/' + $scope.question.id + '/down'
+    }).then(function success(response) {
+      console.log(response);
+      $scope.question.score -= 1;
+    });
+  };
+
   //catch any comments coming from the server that relate to this comment
   Sockets.addSocketListener('server comment', function(comment) {
     console.log(comment);
