@@ -4,7 +4,7 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
   $scope.room = '';
   $scope.newComment = {
     content: '',
-    userId: Auth.currentUser().id,
+    userId: Auth.currentUser() ? Auth.currentUser().id : null,
     questionId: null
   }
 

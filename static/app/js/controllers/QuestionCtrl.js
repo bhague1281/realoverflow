@@ -4,7 +4,7 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
   $scope.scrollDisabled = false;
   $scope.newQuestion = {
     content: '',
-    userId: Auth.currentUser().id
+    userId: Auth.currentUser() ? Auth.currentUser().id : null
   }
 
   $scope.loggedIn = function() {
