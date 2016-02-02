@@ -1,4 +1,4 @@
-realOverflow.factory('Auth', ['$http', '$window', function($http, $window) {
+realOverflow.factory('Auth', ['$http', '$window', 'Alerts', '$route', function($http, $window, Alerts, $route) {
   var auth = {}
 
   auth.saveToken = function(token) {
@@ -54,6 +54,8 @@ realOverflow.factory('Auth', ['$http', '$window', function($http, $window) {
 
   auth.logout = function() {
     $window.localStorage.removeItem('realoverflow-token');
+    Alerts.add('success', 'You have successfully logged out');
+    $route.reload();
   };
 
   return auth;

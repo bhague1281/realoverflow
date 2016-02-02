@@ -38,14 +38,14 @@
         <li><a href="/about" ng-click="navCollapsed=true">About</a></li>
         <li><a href="/questions" ng-click="navCollapsed=true">Questions</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right auth-btns" ng-hide="loggedIn()">
+      <ul class="nav navbar-nav navbar-right auth-btns" ng-hide="Auth.isLoggedIn()">
         <li><a ng-click="openLoginModal(); navCollapsed=true">Login</a></li>
         <li><a ng-click="openSignupModal(); navCollapsed=true">Signup</a></li>
       </ul>
-      <ul class="nav navbar-nav navbar-right auth-btns" ng-show="loggedIn()">
-        <li><a ng-click="logout(); navCollapsed=true">Logout</a></li>
+      <ul class="nav navbar-nav navbar-right auth-btns" ng-show="Auth.isLoggedIn()">
+        <li><a ng-click="Auth.logout(); navCollapsed=true">Logout</a></li>
       </ul>
-      <p class="navbar-text navbar-right auth-btns" ng-show="loggedIn()"><strong>Logged in as {{ currentUser().firstName }}</strong></p>
+      <p class="navbar-text navbar-right auth-btns" ng-show="Auth.isLoggedIn()"><strong>Logged in as {{ Auth.currentUser().firstName }}</strong></p>
     </div><!-- /.navbar-collapse -->
   </nav>
 

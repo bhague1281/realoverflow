@@ -1,19 +1,7 @@
 realOverflow
 .controller('NavCtrl', ['$scope', '$uibModal', '$route', 'Auth', 'Alerts', 'Sockets', function($scope, $uibModal, $route, Auth, Alerts, Sockets) {
   $scope.navCollapsed = true;
-  $scope.loggedIn = function() {
-    return Auth.isLoggedIn();
-  }
-
-  $scope.logout = function() {
-    Auth.logout();
-    Alerts.add('success', 'You have successfully logged out');
-    $route.reload();
-  }
-
-  $scope.currentUser = function() {
-    return Auth.currentUser();
-  }
+  $scope.Auth = Auth;
 
   $scope.openLoginModal = function() {
     var loginModal = $uibModal.open({
