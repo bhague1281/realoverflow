@@ -26,12 +26,16 @@ app.post('/api/signup', function(req, res) {
     }
   }).spread(function(user, created) {
     if (created) {
-      var token = tk.sign(user, process.env.JWT_SECRET, {
+      var serializedUser = user.getWithNoPassword();
+      var token = tk.sign(serializedUser, process.env.JWT_SECRET, {
         expiresIn: process.env.TOKEN_EXPIRATION_TIME // expires in 24 hours
       });
-      var serializedUser = user.getWithNoPassword();
-      serializedUser.token = token;
-      res.send(serializedUser);
+      res.send({
+        success: true,
+        message: 'User created!',
+        token: token,
+        user: serializedUser
+      });
     } else {
       res.status(401).send({message: 'A user with that email address already exists'});
     }
