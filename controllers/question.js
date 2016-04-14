@@ -54,7 +54,9 @@ questionRouter.route('/:questionId')
     });
   });
 
-questionRouter.post('/:questionId/up', function(req, res) {
+questionRouter.post('/:questionId/up',
+                    passport.authenticate('jwt', {session: false}),
+                    function(req, res) {
   db.question.findById(req.params.questionId).then(function(question) {
     question.score += 1;
     question.save().then(function() {
@@ -63,7 +65,9 @@ questionRouter.post('/:questionId/up', function(req, res) {
   });
 });
 
-questionRouter.post('/:questionId/down', function(req, res) {
+questionRouter.post('/:questionId/down',
+                    passport.authenticate('jwt', {session: false}),
+                    function(req, res) {
   db.question.findById(req.params.questionId).then(function(question) {
     question.score -= 1;
     question.save().then(function() {

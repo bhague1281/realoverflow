@@ -10,7 +10,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var sockets = require('./controllers/websockets')(io);
 
-app.set('superSecret', process.env.JWT_SYMMETRIC_KEY);
+app.set('superSecret', process.env.JWT_SECRET);
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, '/static')));

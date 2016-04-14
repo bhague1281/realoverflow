@@ -3,7 +3,7 @@ var JwtStrategy = require('passport-jwt').Strategy;
 var db = require('../models');
 
 passport.use(new JwtStrategy({
-  secretOrKey: process.env.JWT_SYMMETRIC_KEY
+  secretOrKey: process.env.JWT_SECRET
 }, function(jwt_payload, done) {
   db.user.findById(jwt_payload.id).then(function(user) {
     if (user) {
