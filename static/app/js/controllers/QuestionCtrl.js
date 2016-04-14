@@ -30,6 +30,18 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', '
       $scope.error = true;
       $scope.scrollDisabled = false;
     });
+  };
+
+  $scope.deleteQuestion = function(questionId, idx) {
+    $http({
+      method: 'DELETE',
+      url: '/api/questions/' + questionId
+    }).then(function success(response) {
+      $scope.questions.splice(idx, 1);
+      Alerts.add('success', 'Question deleted');
+    }, function error(response) {
+      Alerts.add('danger', 'You do not have permission to remove this question');
+    });
   }
 
   $scope.loadQuestions();

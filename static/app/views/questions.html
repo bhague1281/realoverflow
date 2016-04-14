@@ -38,7 +38,7 @@
       </div>
       <div ng-show="Auth.currentUser().id === question.userId" class="col-xs-2 text-center">
         <button type="button" class="btn btn-info">Edit</button>
-        <button type="button" class="btn btn-danger">Delete</button>
+        <button ng-click="deleteQuestion(question.id, $index)" type="button" class="btn btn-danger">Delete</button>
       </div>
     </div>
   </div>
