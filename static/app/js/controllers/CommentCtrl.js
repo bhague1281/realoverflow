@@ -1,4 +1,4 @@
-realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routeParams', 'Auth', 'Sockets', function($scope, $http, $window, $routeParams, Auth, Sockets) {
+realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routeParams', 'Auth', 'Sockets', 'Alerts', function($scope, $http, $window, $routeParams, Auth, Sockets, Alerts) {
   $scope.pageClass = 'page-comments';
   $scope.question = {};
   $scope.comments = [];
@@ -22,7 +22,6 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
     method: 'GET',
     url: '/api/questions/' + $routeParams.questionId
   }).then(function success(response) {
-    // console.log(response);
     $scope.question = response.data;
     $scope.newComment.questionId = $scope.question.id;
     $scope.room = 'question' + $scope.question.id;
@@ -36,7 +35,6 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
     method: 'GET',
     url: '/api/questions/' + $routeParams.questionId + '/comments'
   }).then(function success(response) {
-    // console.log(response);
     $scope.comments = response.data;
   }, function error(response) {
     // console.log(response);
@@ -53,8 +51,9 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
       method: 'POST',
       url: '/api/questions/' + $scope.question.id + '/up'
     }).then(function success(response) {
-      // console.log(response);
       $scope.question.score += 1;
+    }, function error(response) {
+      Alerts.add('danger', 'You must be logged in to vote.');
     });
   };
 
@@ -63,14 +62,14 @@ realOverflow.controller('CommentCtrl', ['$scope', '$http', '$window', '$routePar
       method: 'POST',
       url: '/api/questions/' + $scope.question.id + '/down'
     }).then(function success(response) {
-      // console.log(response);
       $scope.question.score -= 1;
+    }, function error(response) {
+      Alerts.add('danger', 'You must be logged in to vote.');
     });
   };
 
   //catch any comments coming from the server that relate to this comment
   Sockets.addSocketListener('server comment', function(comment) {
-    // console.log(comment);
     if (comment.questionId === $scope.question.id) {
       $scope.$apply(function() {
         $scope.comments.unshift(comment);
