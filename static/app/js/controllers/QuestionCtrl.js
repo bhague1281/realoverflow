@@ -1,4 +1,4 @@
-realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', function($scope, $http, Auth, Sockets) {
+realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', 'Alerts', function($scope, $http, Auth, Sockets, Alerts) {
   $scope.pageClass = 'page-questions';
   $scope.questions = [];
   $scope.error = false;
@@ -8,10 +8,7 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
     content: '',
     userId: Auth.currentUser() ? Auth.currentUser().id : null
   }
-
-  $scope.loggedIn = function() {
-    return Auth.isLoggedIn();
-  }
+  $scope.Auth = Auth;
 
   $scope.submitQuestion = function() {
     Sockets.emitEvent('new question', $scope.newQuestion);
@@ -44,6 +41,8 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
     }).then(function success(response) {
       // console.log(response);
       $scope.questions[idx].score += 1;
+    }, function error(response) {
+      Alerts.add('danger', 'You must be logged in to vote.');
     });
   };
 
@@ -54,6 +53,8 @@ realOverflow.controller('QuestionCtrl', ['$scope', '$http', 'Auth', 'Sockets', f
     }).then(function success(response) {
       // console.log(response);
       $scope.questions[idx].score -= 1;
+    }, function error(response) {
+      Alerts.add('danger', 'You must be logged in to vote.');
     });
   };
 
