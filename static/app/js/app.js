@@ -1,9 +1,5 @@
 var realOverflow = angular.module('RealOverflow', ['ngRoute', 'ui.bootstrap', 'ngAnimate', 'angularMoment', 'infinite-scroll']);
 
-realOverflow.run(['$http', 'Auth', function($http, Auth) {
-  $http.defaults.headers.common.Authorization = 'JWT ' + Auth.getToken();
-}]);
-
 realOverflow.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   $routeProvider
   .when('/', {
@@ -27,4 +23,8 @@ realOverflow.config(['$routeProvider', '$locationProvider', function($routeProvi
   })
 
   $locationProvider.html5Mode(true);
+}])
+
+.config(['$httpProvider', function($httpProvider) {
+  $httpProvider.interceptors.push('HttpRequestInterceptor');
 }]);
