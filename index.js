@@ -76,13 +76,8 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
-app.get('/api/protected', passport.authenticate('jwt', {session: false}), function(req, res) {
-  res.send(req.user);
-});
-
 app.use('/api/users', passport.authenticate('jwt', {session: false}), require('./controllers/user'));
 app.use('/api/questions', require('./controllers/question'));
-app.use('/api/alerts', passport.authenticate('jwt', {session: false}), require('./controllers/question'));
 
 // Requests that don't match any of the above should be sent to index
 app.use(function(req, res) {
