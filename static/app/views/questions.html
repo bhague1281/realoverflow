@@ -21,19 +21,19 @@
         <span class="glyphicon glyphicon-arrow-down" ng-click="down($index)" aria-hidden="true"></span>
       </div>
       <div class="col-xs-8">
-        <h4><a ng-href="/questions/{{ question.id }}/comments">{{ question.content }}</a>
-        <br>
-        <small>
-          <strong>{{ question.user.firstName }} {{ question.user.lastName }}</strong>
-           asked this <span am-time-ago="question.createdAt"></span>
-        </small>
-        <br><br>
-        <small>
-          <ng-pluralize count="question.comments.length"
-             when="{'0': 'No comments',
-                    'one': '1 comment',
-                    'other': '{} comments'}"></ng-pluralize>
-        </small>
+        <h4>
+          <a ng-href="/questions/{{question.id}}/comments">{{ question.content }}</a>
+          <br>
+          <small>
+            <strong>{{question.user.firstName}} {{question.user.lastName}}</strong>
+             asked this <span am-time-ago="question.createdAt"></span> |
+            <a ng-href="/questions/{{question.id}}/comments">
+              <ng-pluralize count="question.comments.length"
+                 when="{'0': 'Start a discussion',
+                        'one': '1 comment',
+                        'other': '{} comments'}"></ng-pluralize>
+            </a>
+          </small>
       </h4>
       </div>
       <div ng-show="Auth.currentUser().id === question.userId" class="col-xs-2 text-center">
