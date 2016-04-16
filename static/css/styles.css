@@ -144,19 +144,10 @@ button.close span {
   padding: 0;
 }
 
-textarea.form-control {
-  transition: padding .5s ease;
-}
-
 .form-control:focus {
   border-color: inherit;
   -webkit-box-shadow: none;
   box-shadow: none;
-}
-
-textarea.form-control:focus {
-  transition: padding .5s ease;
-  padding: 10px;
 }
 
 /* footer code from Bootstrap */
