@@ -4,10 +4,20 @@ var passport = require('../config/passportJwt');
 var questionRouter = express.Router();
 var commentRouter = express.Router({mergeParams: true});
 
+// cache initialization
+var initCache = require('sequelize-redis-cache');
+var redis     = require('redis');
+// redis for caching Sequelize queries
+var rc = redis.createClient(process.env.REDIS_URL);
+var cacher = initCache(db.sequelize, rc);
+
 questionRouter.use('/:questionId/comments', commentRouter);
 
 questionRouter.route('/')
   .get(function(req, res) {
+    var questionCache = cacher('question')
+    .ttl(5);
+
     var params = {
       include: [db.user, db.comment],
       order: '"createdAt" DESC'
@@ -16,7 +26,7 @@ questionRouter.route('/')
     if (req.query.offset) params.offset = req.query.offset;
     if (req.query.limit) params.limit = req.query.limit;
 
-    db.question.findAll(params).then(function(questions) {
+    questionCache.findAll(params).then(function(questions) {
       res.send(questions);
     });
   })
