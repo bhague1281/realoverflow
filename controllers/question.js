@@ -16,7 +16,7 @@ questionRouter.use('/:questionId/comments', commentRouter);
 questionRouter.route('/')
   .get(function(req, res) {
     var questionCache = cacher('question')
-    .ttl(5);
+    .ttl(process.ENV.SEQUELIZE_CACHE_TTL);
 
     var params = {
       include: [db.user, db.comment],
